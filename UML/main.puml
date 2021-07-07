@@ -1,0 +1,111 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+class ToDoManager
+{
+    main()
+    start()
+}
+
+javafx.Application <|-- ToDoManager
+
+class ToDoManagerController
+{
+    public newListClicked()
+    public deleteListClicked()
+    public editTitleClicked(String title) //write over
+    public newItemClicked()
+    public deleteItemClicked()
+    public editDescriptionClicked(String description) //write over
+    public editDateClicked()
+    public markDoneClicked()
+    public ShowAllClicked()
+    public ShowIncompleteClicked()
+    public ShowCompletedClicked()
+    public SaveClicked()
+    public SaveAllClicked()
+    public LoadClicked(String title) //prompt for title
+    public LoadAllClicked()
+
+    public PreviousListClicked()
+    public PreviousItemClicked()
+
+    public NextListClicked()
+    public NextItemClicked()
+
+}
+
+ToDoManager - ToDoManagerController
+ToDoManagerController <-- ToDoList
+
+class ToDoList
+{
+    - String: Title
+    - Array[]: ToDoItem
+    - int: CurrentItem
+
+    + String Date
+    + String Desc
+
+    Constructor ToDoList()
+
+    String getTitle() return String
+    void setTitle(String)
+
+    private dateChecker(String Date) return boolean
+    public newItem(String Date, String Desc)
+
+    public editItem(int 0)
+
+    public getItem(int 0)
+}
+
+class ToDoItem
+{
+    //int item number
+
+    - boolean: Done
+    - String: description
+    - String: Date
+
+    Constructor ToDoItem()
+
+    public String getDate() return String
+    public void setDate(String Date)
+
+    public String getDesc() return String
+    public void setDesc(String Desc)
+
+    public String getDone() return boolean
+    public void setDone()
+}
+
+ToDoList <-- ToDoItem
+
+class FileManager
+{
+
+    public ListToFile()
+
+    public FileToList()
+
+    public LoadMasterSave()
+
+    public SaveMasterSave()
+
+}
+
+class MasterSave
+{
+    LinkList: TitleList
+
+    getToDoList()
+    getAllToDoList()
+
+    addToDoList()
+}
+
+FileManager - MasterSave
+javafx.Application <-- FileManager
+
+@enduml
