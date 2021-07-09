@@ -9,31 +9,37 @@ package ucf.assignments;
 
 public class ToDoItem {
 
-    //int item number
-
-    private boolean Done;
+    private String Done;
     private String Description;
     private String Date;
 
-    public ToDoItem(){
+    public ToDoItem(String date, String desc){
 
-        //set date
-        //set desc
-        //set done to false
+        setDate(date);
+        setDesc(desc);
+        setDone();
     }
 
     public String getDate(){ return Date;}
     public void setDate(String date){
 
-        //Date = date;
-    };
+        Date = date;
+    }
 
     public String getDesc(){return Description;}
     public void setDesc(String Desc){
 
-        //Description = Desc;
+        Description = Desc;
     }
 
-    public boolean getDone(){ return Done;}
-    public void setDone(){Done = true;}
+    public String getDone(){ return Done;}
+    public void setDone() {
+        if (Done != "true") {
+            Done = "true";
+        }
+        else
+        {
+            Done = "false";
+        }
+    }
 }

@@ -8,21 +8,24 @@
 package ucf.assignments;
 
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
+import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 
 public class ToDoManagerController {
 
+    //
+    private final ToDoList List = new ToDoList();
+    private String Desc;
+    private String Date;
+
     //text section
     public TextArea DisplayList;
     public TextField UserInput;
     public TextArea UserPrompt;
-    public TextArea DisplayTitle;
 
-
+    @FXML
     public void EditDateClicked(ActionEvent actionEvent) {
 
         //update UserPrompt "Enter in new Date"
@@ -30,6 +33,7 @@ public class ToDoManagerController {
         // call editItemDate
     }
 
+    @FXML
     public void EditDescClicked(ActionEvent actionEvent) {
 
         //update UserPrompt "Enter in new description"
@@ -37,85 +41,52 @@ public class ToDoManagerController {
         // call editItemDesc
     }
 
+    @FXML
     public void MarkDoneClicked(ActionEvent actionEvent) {
 
         // get current Item object from ToDoList, call getItem
         //call setDone
     }
 
+    @FXML
     public void DeleteItemClicked(ActionEvent actionEvent) {
 
         //check if isEmpty
         //use list method to remove the item from the ToDoList
-
     }
 
+    @FXML
     public void SaveClicked(ActionEvent actionEvent) {
 
         //call ListToFile
     }
 
-    public void SaveAllClicked(ActionEvent actionEvent) {
-
-        //call AllListToFile
-    }
-
+    @FXML
     public void LoadClicked(ActionEvent actionEvent) {
 
         //call FileToList
     }
 
-    public void LoadAllClicked(ActionEvent actionEvent) {
-
-        //call AllFilesToList
-    }
-
-    public void EditTitleClicked(ActionEvent actionEvent) {
-
-        //call setTitle
-        //update DisplayTitle to show new Title
-    }
-
-    public void DeleteToDoListClicked(ActionEvent actionEvent) {
-
-        //check if isEmpty
-        //use list method to remove the ToDoList Object from List
-    }
-
+    @FXML
     public void EnterListener(KeyEvent keyEvent) {
 
         //if enter key is hit
         //get text from userInput
     }
 
+    @FXML
     public void NextItemClicked(ActionEvent actionEvent) {
 
         //call .next on the current ToDoList object
     }
 
-    public void NextListClicked(ActionEvent actionEvent) {
-
-        //call .next on the current List<ToDoList> object
-    }
-
-    public void PreviousListClicked(ActionEvent actionEvent) {
-
-        //call .previous on the current ToDoList object
-    }
-
+    @FXML
     public void PreviousItemClicked(ActionEvent actionEvent) {
 
         //call .previous on the current List<ToDoList> object
     }
 
-    public void NewToDoListClicked(ActionEvent actionEvent) {
-
-        //update UserPrompt "What is the Title"
-
-        //ToDoList x = new ToDoList( call for UserInput)
-        //Add the item to the ToDoList List
-    }
-
+    @FXML
     public void ShowCompletedClicked(ActionEvent actionEvent) {
 
         //loop threw the current ToDoList items
@@ -124,6 +95,7 @@ public class ToDoManagerController {
         //update DisplayList to the new string
     }
 
+    @FXML
     public void ShowAllClicked(ActionEvent actionEvent) {
 
         //loop threw the current ToDoList items
@@ -131,6 +103,7 @@ public class ToDoManagerController {
         //update DisplayList to the new string
     }
 
+    @FXML
     public void ShowIncompleteClicked(ActionEvent actionEvent) {
 
         //loop threw the current ToDoList items
@@ -139,13 +112,30 @@ public class ToDoManagerController {
         //update DisplayList to the new string
     }
 
+    @FXML
     public void NewItemClicked(ActionEvent actionEvent) {
-
-        //call newItem method
+        List.newItem(Date, Desc);
     }
 
-    public void SortItemsClicked(ActionEvent actionEvent) {
+    @FXML
+    public void NewToDoListClicked(ActionEvent actionEvent) {
 
-        //call SortItemByDate
+        //if ToDoList is Null, create new ToDoList
+        //else call Clear Items method
+    }
+
+
+    //help functions
+    private boolean dateChecker(String Date) {
+
+        //if Date match format YYYY-MM-DD //use .matchs
+        //return ture;
+
+        return false;
+    }
+
+    private boolean descChecker(String Desc)
+    {
+        return Desc.length() > 1 && Desc.length() < 256;
     }
 }

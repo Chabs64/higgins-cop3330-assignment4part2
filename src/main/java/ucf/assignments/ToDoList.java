@@ -11,44 +11,17 @@ import java.util.ArrayList;
 
 public class ToDoList {
 
-    private String Title;
-    private ArrayList<ToDoItem> ToDoItem;
-    private int CurrentItem;
+    private ArrayList<ToDoItem> ToDoItemList;
 
-    public String Date;
-    public String Desc;
-
-    public ToDoList(){
-
-        //set title
+    public ToDoList() {
+        ToDoItemList = new ArrayList<ToDoItem>();
     }
-
-    public String getTitle(){ return Title;}
-    public void setTitle(String title){
-
-        //Title = title;
-    };
-
-    private boolean dateChecker(String Date) {
-
-        //if Date match format MM-DD-YEAR //use .matchs
-        //return ture;
-
-        return false;
-    }
-
 
     public void newItem(String Date, String Desc)
     {
-        //call toDoitem item = new item
+        ToDoItem item = new ToDoItem(Date, Desc);
 
-        //call date checker while loop
-        //if bad get new call get userinput date
-
-        //set item date
-        //set item Desc
-
-        //add it to list
+        ToDoItemList.add(item);
     }
 
     public void editItemDate(int listNumber, String date)
@@ -64,17 +37,12 @@ public class ToDoList {
 
     public void editItemDesc(String Desc)
     {
-
-        //go to item with listNumber
-
         //call set Desc method
     }
 
     public String getItem()
     {
         String ItemInfo;
-
-        //find item in list with listNumber
 
         //set ItemInfo to get a concat of
         // get desc and get date from item
@@ -83,12 +51,9 @@ public class ToDoList {
         return "";
     }
 
-    public void SortItemsByDate()
+    public void clearItemList()
     {
-
-        //call collection.sort() on the ArrayList of Items
-        // .compareTo the year, then compareTo the month, then compareTo the day.
+        ToDoItemList.clear();
     }
-
 
 }

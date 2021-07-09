@@ -11,57 +11,21 @@ import java.util.List;
 
 public class FileManager {
 
-    public void ListToFile(ToDoList currentList)
+    public void ListToFile(String FileName, ToDoList List)
     {
 
-        //create or edit a file with the ToDoList Title
-        //add the title to the first line
-        //loop threw elements and add the desc first and then add date on separate line
+        //create or edit a file with the user FileName
+
+        //loop threw elements and add the done\n desc\n date\n
 
     }
 
-    public ToDoList FileToList(String Title)
+    public ToDoList FileToList(String FileName, ToDoList List)
     {
-        //check if the title exist by calling getToDoList, if not re prompt the user for a new title
-        //then load the file with that title
-        //add the title to the ToDoList
-        //then loop threw the rest of the file add each element to the ToDoItems
-        //return the ToDoList
+        //check for File using user path, crash if bad path
+
+        //if good, add item to ToDoList
         return null;
     }
-
-
-    public ToDoList AllFilesToList()
-    {
-        //loop threw the masterSaveFile and
-        //call FileToList for each title
-        //return the ToDoList
-        return null;
-    }
-
-    public void AllListsToFile(List<ToDoList> currentList)
-    {
-        //loop threw the list
-        //call ListToFile
-
-    }
-
-
-    public List<String> LoadMasterSave()
-    {
-        //make a list of strings
-        //loop threw the file and add the titles to the string list
-        //return the List<String>
-        return null;
-    }
-
-    public void SaveMasterSave()
-    {
-        //List<string> = getMasterSave
-        //create or overwrite 'MasterSave' file
-        //write each element of the master save to the file separated by newLines
-    }
-
-
 
 }
