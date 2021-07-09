@@ -15,21 +15,30 @@ import javafx.scene.input.KeyEvent;
 
 public class ToDoManagerController {
 
-    //
     private final ToDoList List = new ToDoList();
-    private String Desc;
-    private String Date;
+    private String Desc = null;
+    private String Date = null;
 
     //text section
-    public TextArea DisplayList;
-    public TextField UserInput;
-    public TextArea UserPrompt;
+    @FXML
+    public TextArea DisplayList = new TextArea();
+
+    @FXML
+    public TextArea UserPrompt = new TextArea();
+
+    @FXML
+    public TextField UserInput = new TextField();
 
     @FXML
     public void EditDateClicked(ActionEvent actionEvent) {
 
         //update UserPrompt "Enter in new Date"
+        UserPrompt.setText("Enter in new Date");
+
         // get current Item object from ToDoList, call getItem
+
+
+
         // call editItemDate
     }
 
@@ -78,6 +87,7 @@ public class ToDoManagerController {
     public void NextItemClicked(ActionEvent actionEvent) {
 
         //call .next on the current ToDoList object
+
     }
 
     @FXML
@@ -131,6 +141,7 @@ public class ToDoManagerController {
         //if Date match format YYYY-MM-DD //use .matchs
         //return ture;
 
+
         return false;
     }
 
@@ -141,12 +152,16 @@ public class ToDoManagerController {
 
     private void getDateInput()
     {
-
+        if( dateChecker(UserInput.getText()) ){
+            Date = UserInput.getText();
+        }
     }
 
     private void getDescInput()
     {
-
+        if( descChecker(UserInput.getText()) ) {
+            Desc = UserInput.getText();
+        }
     }
 
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class ToDoList {
 
     private ArrayList<ToDoItem> ToDoItemList;
+    private int currentItem;
 
     public ToDoList() {
         ToDoItemList = new ArrayList<ToDoItem>();
@@ -24,36 +25,52 @@ public class ToDoList {
         ToDoItemList.add(item);
     }
 
-    public void editItemDate(int listNumber, String date)
+    public void nextItem()
     {
+        if (currentItem < ToDoItemList.size()){currentItem = currentItem+1;}
+    }
 
-        //go to item with listNumber
+    public void prevItem()
+    {
+        if (currentItem > 0){currentItem = currentItem-1;}
+    }
 
-        //call date checker while loop
-        //if bad get new call get userinput date
-
+    public void editItemDate(String date)
+    {
+        //go to current item
         //call set date method
+
+        ToDoItemList.get(currentItem).setDate(date);
     }
 
     public void editItemDesc(String Desc)
     {
-        //call set Desc method
+        //go to current item
+        //call set desc method
+
+        ToDoItemList.get(currentItem).setDesc(Desc);
+    }
+
+    public void editItemDone()
+    {
+        ToDoItemList.get(currentItem).setDone();
     }
 
     public String getItem()
     {
-        String ItemInfo;
-
         //set ItemInfo to get a concat of
-        // get desc and get date from item
+        //done, get desc and get date from item
+        String ItemInfo = ToDoItemList.get(currentItem).getDone() + "\n" +
+                ToDoItemList.get(currentItem).getDesc() + "\n" +
+                ToDoItemList.get(currentItem).getDate() + "\n";
 
-        //return ItemInfo;
-        return "";
+        return ItemInfo;
     }
 
     public void clearItemList()
     {
         ToDoItemList.clear();
+        currentItem = 0;
     }
 
 }
