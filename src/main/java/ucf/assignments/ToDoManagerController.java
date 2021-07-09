@@ -138,4 +138,15 @@ public class ToDoManagerController {
     {
         return Desc.length() > 1 && Desc.length() < 256;
     }
+
+    private void getDateInput()
+    {
+
+    }
+
+    private void getDescInput()
+    {
+
+    }
+
 }
