@@ -35,26 +35,33 @@ public class ToDoManagerController {
         //update UserPrompt "Enter in new Date"
         UserPrompt.setText("Enter in new Date");
 
-        // get current Item object from ToDoList, call getItem
-
-
-
         // call editItemDate
+        List.editItemDate(UserInput.getText());
+
+        // get current Item object from ToDoList, call getItem
+        DisplayList.setText(List.getItem());
     }
 
     @FXML
     public void EditDescClicked(ActionEvent actionEvent) {
 
         //update UserPrompt "Enter in new description"
-        // get current Item object from ToDoList, call getItem
+        UserPrompt.setText("Enter in new description");
+
         // call editItemDesc
+        List.editItemDesc(UserInput.getText());
+
+        // get current Item object from ToDoList, call getItem
+        DisplayList.setText(List.getItem());
     }
 
     @FXML
     public void MarkDoneClicked(ActionEvent actionEvent) {
 
+        List.editItemDone();
+
         // get current Item object from ToDoList, call getItem
-        //call setDone
+        DisplayList.setText(List.getItem());
     }
 
     @FXML
@@ -87,39 +94,39 @@ public class ToDoManagerController {
     public void NextItemClicked(ActionEvent actionEvent) {
 
         //call .next on the current ToDoList object
-
+        //display that item
+        List.nextItem();
+        DisplayList.setText(List.getItem());
     }
 
     @FXML
     public void PreviousItemClicked(ActionEvent actionEvent) {
 
         //call .previous on the current List<ToDoList> object
+        //display that item
+        List.prevItem();
+        DisplayList.setText(List.getItem());
     }
 
     @FXML
     public void ShowCompletedClicked(ActionEvent actionEvent) {
 
-        //loop threw the current ToDoList items
-        //if Done is true
-        //add desc then date to a string and then new line
-        //update DisplayList to the new string
+        //call createDisplay for 1
+        DisplayList.setText(createDisplay(1));
     }
 
     @FXML
     public void ShowAllClicked(ActionEvent actionEvent) {
 
-        //loop threw the current ToDoList items
-        //add desc then date to a string and then new line
-        //update DisplayList to the new string
+        //call createDisplay for default
+        DisplayList.setText(createDisplay(0));
     }
 
     @FXML
     public void ShowIncompleteClicked(ActionEvent actionEvent) {
 
-        //loop threw the current ToDoList items
-        //if Done is false
-        //add desc then date to a string and then new line
-        //update DisplayList to the new string
+        //call createDisplay for 2
+        DisplayList.setText(createDisplay(2));
     }
 
     @FXML
@@ -130,8 +137,8 @@ public class ToDoManagerController {
     @FXML
     public void NewToDoListClicked(ActionEvent actionEvent) {
 
-        //if ToDoList is Null, create new ToDoList
-        //else call Clear Items method
+        //call Clear Items method
+        List.clearItemList();
     }
 
 
@@ -140,9 +147,14 @@ public class ToDoManagerController {
 
         //if Date match format YYYY-MM-DD //use .matchs
         //return ture;
-
-
-        return false;
+        if(Date.matches("####-##-##"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     private boolean descChecker(String Desc)
@@ -161,6 +173,47 @@ public class ToDoManagerController {
     {
         if( descChecker(UserInput.getText()) ) {
             Desc = UserInput.getText();
+        }
+    }
+
+    private String createDisplay(int Done)
+    {
+        String updatedDisplay = "";
+
+        switch (Done) {
+            case 1 -> {
+                //loop threw the current ToDoList items
+                //if Done is true
+                //add desc then date to a string and then new line
+                //update DisplayList to the new string
+                for (int i = 0; i < List.ItemSize(); i++) {
+                    if (List.isDone(i)) {
+                        updatedDisplay = updatedDisplay + List.getItem(i) + "\n";
+                    }
+                }
+                return updatedDisplay;
+            }
+            case 2 -> {
+                //loop threw the current ToDoList items
+                //if Done is false
+                //add desc then date to a string and then new line
+                //update DisplayList to the new string
+                for (int i = 0; i < List.ItemSize(); i++) {
+                    if (!List.isDone(i)) {
+                        updatedDisplay = updatedDisplay + List.getItem(i) + "\n";
+                    }
+                }
+                return updatedDisplay;
+            }
+            default -> {
+                //loop threw the current ToDoList items
+                //add desc then date to a string and then new line
+                //update DisplayList to the new string
+                for (int i = 0; i < List.ItemSize(); i++) {
+                    updatedDisplay = updatedDisplay + List.getItem(i) + "\n";
+                }
+                return updatedDisplay;
+            }
         }
     }
 

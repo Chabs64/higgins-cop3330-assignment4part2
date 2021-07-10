@@ -56,6 +56,17 @@ public class ToDoList {
         ToDoItemList.get(currentItem).setDone();
     }
 
+    public String getItem(int x)
+    {
+        //set ItemInfo to get a concat of
+        //done, get desc and get date from item
+        String ItemInfo = ToDoItemList.get(x).getDone() + "\n" +
+                ToDoItemList.get(x).getDesc() + "\n" +
+                ToDoItemList.get(x).getDate() + "\n";
+
+        return ItemInfo;
+    }
+
     public String getItem()
     {
         //set ItemInfo to get a concat of
@@ -65,6 +76,21 @@ public class ToDoList {
                 ToDoItemList.get(currentItem).getDate() + "\n";
 
         return ItemInfo;
+    }
+
+    public int ItemSize()
+    {
+        return ToDoItemList.size();
+    }
+
+    public boolean isDone(int x)
+    {
+        if("Done".equals(ToDoItemList.get(x).getDone()))
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public void clearItemList()
