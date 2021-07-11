@@ -23,22 +23,22 @@ import java.util.ResourceBundle;
 
 public class ToDoManagerController implements Initializable {
 
-    private ToDoList List = new ToDoList();
+    private ToDoList List;
     private String Desc;
     private String Date;
-    private volatile boolean InputUpdate;
+    private boolean InputUpdate;
 
     FileChooser fileChooser = new FileChooser();
 
     //text section
     @FXML
-    public TextArea DisplayList = new TextArea();
+    public TextArea DisplayList;
 
     @FXML
-    public TextArea UserPrompt = new TextArea();
+    public TextArea UserPrompt;
 
     @FXML
-    public TextField UserInput = new TextField();
+    public TextField UserInput;
 
     @FXML
     public void EditDateClicked(ActionEvent actionEvent) {
@@ -147,21 +147,21 @@ public class ToDoManagerController implements Initializable {
     public void ShowCompletedClicked(ActionEvent actionEvent) {
 
         //call createDisplay for 1
-        DisplayList.setText(createDisplay(1));
+        DisplayList.setText(createDisplay(1, List));
     }
 
     @FXML
     public void ShowAllClicked(ActionEvent actionEvent) {
 
         //call createDisplay for default
-        DisplayList.setText(createDisplay(0));
+        DisplayList.setText(createDisplay(0, List));
     }
 
     @FXML
     public void ShowIncompleteClicked(ActionEvent actionEvent) {
 
         //call createDisplay for 2
-        DisplayList.setText(createDisplay(2));
+        DisplayList.setText(createDisplay(2, List));
     }
 
     @FXML
@@ -180,16 +180,21 @@ public class ToDoManagerController implements Initializable {
     }
 
     //help functions
-    private boolean dateChecker(String Date) {
+    public boolean dateChecker(String Date) {
 
         //if Date match format YYYY-MM-DD //use .matchs
         //return ture;
         return Date.matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]");
     }
 
-    private boolean descChecker(String Desc)
+    public boolean descChecker(String Desc)
     {
-        return Desc.length() > 1 && Desc.length() < 256;
+        if (Desc != null) {
+            return Desc.length() > 0 && Desc.length() < 257;
+        }
+        else{
+            return false;
+        }
     }
 
     private void getDateInput()
@@ -225,7 +230,7 @@ public class ToDoManagerController implements Initializable {
         }
     }
 
-    private String createDisplay(int Done)
+    public String createDisplay(int Done, ToDoList List)
     {
         StringBuilder updatedDisplay = new StringBuilder();
 
@@ -270,12 +275,14 @@ public class ToDoManagerController implements Initializable {
         while (InputUpdate) {
             Thread.onSpinWait();
         }
-        InputUpdate = false;
+        InputUpdate = true;
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         fileChooser.setInitialDirectory(new File("C:\\"));
+        List = new ToDoList();
+        InputUpdate = false;
     }
 }

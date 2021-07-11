@@ -44,12 +44,16 @@ public class ToDoItem {
 
     public String getDone(){ return Done;}
     public void setDone() {
-        if (Done != "Completed") {
-            this.Done = "Completed";
+        if(Done == null)
+        {
+            this.Done = "Incomplete";
+        }
+        else if (Done.equals("Completed")) {
+            this.Done = "Incomplete";
         }
         else
         {
-            this.Done = "Incomplete";
+            this.Done = "Completed";
         }
     }
 

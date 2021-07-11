@@ -9,9 +9,6 @@ package ucf.assignments;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-import java.util.Scanner;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /*
@@ -44,53 +41,71 @@ import static org.junit.jupiter.api.Assertions.*;
     or a markdown file called `readme.md` on your GitHub repository for the project.)
 */
 
-class FileManagerTest {
+class ToDoItemTest {
 
     @Test
-    void listToFileUserSave13() {
+    void getDateItemWill3() {
+        //create new item
+        ToDoItem Item = new ToDoItem("date", "desc");
 
-        //create "testFile"
-        File testfile = new File("testFile.txt");
-        //create "ListTestFile"
-        File ListTestFile = new File("ListTestFile.txt");
-
-        //create ToDoList
-        ToDoList testList = new ToDoList();
-        testList.newItem("1999-01-01", "Test Desc", "Completed");
-
-        //call listToFile
-        FileManager.ListToFile(ListTestFile, testList);
-
-        //loop
-        //compare files by reading each lines from both files
-        Scanner scanner = new Scanner("testFile.txt");
-        Scanner scanner2 = new Scanner("ListTestFile.txt");
-        //if false assert false
-        while(scanner.hasNextLine() && scanner2.hasNextLine())
-        {
-            if(!scanner.nextLine().equals(scanner2.nextLine()))
-            {
-                assertFalse(false);
-            }
-        }
-        assertTrue(true);
+        //call get method
+        //assert it is the date gotten is what the you set the date to
+        assertEquals("date", Item.getDate());
     }
 
     @Test
-    void fileToListUserLoad14() {
+    void setDateItemWill3() {
+        //create new item
+        ToDoItem Item = new ToDoItem("date", "desc");
 
-        //create test file
-        File file = new File("testFile.txt");
-        //create test list, with test values
-        ToDoList testList = new ToDoList();
-        testList.newItem("1999-01-01", "Test Desc", "Completed");
+        //call set method with new date
+        Item.setDate("new date");
 
-        //create new ToDoList
-        //call fileToList
-        ToDoList newList = FileManager.FileToList(file);
+        //assert it is the date gotten is what the you set the date to
+        assertEquals("new date", Item.getDate());
+    }
 
-        //assert false is no match
-        //else assert true
-        assertEquals(newList.getItem(0), testList.getItem(0));
+    @Test
+    void getDescItemWill2() {
+        //create new item
+        ToDoItem Item = new ToDoItem("date", "desc");
+
+        //call get method
+        //assert it is the desc gotten is what the you set the desc to
+        assertEquals("desc", Item.getDesc());
+    }
+
+    @Test
+    void setDescItemWill2() {
+        //create new item
+        ToDoItem Item = new ToDoItem("date", "desc");
+
+        //call set method
+        Item.setDesc("new desc");
+
+        //assert it is the desc gotten is what the you set the desc to
+        assertEquals("new desc", Item.getDesc());
+    }
+
+    @Test
+    void getDonePartOf11through15() {
+        //create new item
+        ToDoItem Item = new ToDoItem("date", "desc", "Completed");
+
+        //call get method
+        //assert Completed gotten is what the you set the Completed to
+        assertEquals("Completed", Item.getDone());
+    }
+
+    @Test
+    void setDoneUserCan9() {
+        //create new item
+        ToDoItem Item = new ToDoItem("date", "desc");
+
+        //call set method, this should toggle from incomplete to complete
+        Item.setDone();
+
+        //assert Completed gotten is what the you set the Completed to
+        assertEquals("Completed", Item.getDone());
     }
 }

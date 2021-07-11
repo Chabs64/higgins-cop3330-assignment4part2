@@ -37,12 +37,18 @@ public class ToDoList {
 
     public void nextItem()
     {
-        if (currentItem < ToDoItemList.size()){currentItem = currentItem+1;}
+        if (currentItem < ToDoItemList.size()-1)
+        {
+            currentItem = currentItem+1;
+        }
     }
 
     public void prevItem()
     {
-        if (currentItem > 0){currentItem = currentItem-1;}
+        if (currentItem > 0)
+        {
+            currentItem = currentItem-1;
+        }
     }
 
     public void editItemDate(String date)
@@ -68,6 +74,12 @@ public class ToDoList {
 
     public String getItem(int x)
     {
+        //make sure ToDoItemList is not empty
+        if(ToDoItemList.isEmpty())
+        {
+            return null;
+        }
+
         //set ItemInfo to get a concat of
         //done, get desc and get date from item
         String ItemInfo = ToDoItemList.get(x).getDone() + "\n" +
@@ -79,6 +91,11 @@ public class ToDoList {
 
     public String getItem()
     {
+        //make sure ToDoItemList is not empty
+        if(ToDoItemList.isEmpty())
+        {
+            return null;
+        }
         //set ItemInfo to get a concat of
         //done, get desc and get date from item
         String ItemInfo = ToDoItemList.get(currentItem).getDone() + "\n" +
@@ -99,19 +116,20 @@ public class ToDoList {
         {
             return true;
         }
-
         return false;
     }
 
     public void removeItem()
     {
-        ToDoItemList.remove(currentItem);
-        currentItem -= 1;
+        if(!ToDoItemList.isEmpty()) {
+            ToDoItemList.remove(currentItem);
+            currentItem = ToDoItemList.size()-currentItem;
+        }
     }
 
     public void clearItemList()
     {
         ToDoItemList.clear();
-        currentItem = -1;
+        currentItem = 0;
     }
 }

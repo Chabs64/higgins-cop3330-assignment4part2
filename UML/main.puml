@@ -40,9 +40,9 @@ class ToDoManagerController{
     public EnterListener()
     private WaitForUser()
 
-    private getDateInput()
-    private getDescInput()
-    private createDisplay()
+    public getDateInput()
+    public getDescInput()
+    public createDisplay()
 
     @Override initialize()
 }
