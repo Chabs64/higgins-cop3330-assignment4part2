@@ -7,20 +7,28 @@
 
 package ucf.assignments;
 
-import com.sun.source.tree.WhileLoopTree;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
-public class ToDoManagerController {
+import java.io.File;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    private final ToDoList List = new ToDoList();
-    private String Desc = null;
-    private String Date = null;
-    private volatile boolean InputUpdate = false;
+public class ToDoManagerController implements Initializable {
+
+    private ToDoList List = new ToDoList();
+    private String Desc;
+    private String Date;
+    private volatile boolean InputUpdate;
+
+    FileChooser fileChooser = new FileChooser();
 
     //text section
     @FXML
@@ -45,13 +53,6 @@ public class ToDoManagerController {
 
         // get current Item object from ToDoList, call getItem
         DisplayList.setText(List.getItem());
-    }
-
-    private void WaitForUser() {
-        while (InputUpdate) {
-            Thread.onSpinWait();
-        }
-        InputUpdate = false;
     }
 
     @FXML
@@ -94,8 +95,10 @@ public class ToDoManagerController {
     public void SaveClicked(ActionEvent actionEvent) {
 
         //call file chose
+        File file = fileChooser.showSaveDialog(new Stage());
 
         //call ListToFile
+        FileManager.ListToFile(file, List);
 
     }
 
@@ -103,9 +106,10 @@ public class ToDoManagerController {
     public void LoadClicked(ActionEvent actionEvent) {
 
         //call file chose
+        File file = fileChooser.showOpenDialog(new Stage());
 
         //call FileToList
-
+        List = FileManager.FileToList(file);
     }
 
     @FXML
@@ -163,11 +167,8 @@ public class ToDoManagerController {
     @FXML
     public void NewItemClicked(ActionEvent actionEvent) {
 
-
         getDateInput();
-
         getDescInput();
-
         List.newItem(Date, Desc);
     }
 
@@ -177,7 +178,6 @@ public class ToDoManagerController {
         //call Clear Items method
         List.clearItemList();
     }
-
 
     //help functions
     private boolean dateChecker(String Date) {
@@ -227,7 +227,7 @@ public class ToDoManagerController {
 
     private String createDisplay(int Done)
     {
-        String updatedDisplay = "";
+        StringBuilder updatedDisplay = new StringBuilder();
 
         switch (Done) {
             case 1 -> {
@@ -237,10 +237,10 @@ public class ToDoManagerController {
                 //update DisplayList to the new string
                 for (int i = 0; i < List.ItemSize(); i++) {
                     if (List.isDone(i)) {
-                        updatedDisplay = updatedDisplay + List.getItem(i) + "\n";
+                        updatedDisplay.append(List.getItem(i)).append("\n");
                     }
                 }
-                return updatedDisplay;
+                return updatedDisplay.toString();
             }
             case 2 -> {
                 //loop threw the current ToDoList items
@@ -249,21 +249,33 @@ public class ToDoManagerController {
                 //update DisplayList to the new string
                 for (int i = 0; i < List.ItemSize(); i++) {
                     if (!List.isDone(i)) {
-                        updatedDisplay = updatedDisplay + List.getItem(i) + "\n";
+                        updatedDisplay.append(List.getItem(i)).append("\n");
                     }
                 }
-                return updatedDisplay;
+                return updatedDisplay.toString();
             }
             default -> {
                 //loop threw the current ToDoList items
                 //add desc then date to a string and then new line
                 //update DisplayList to the new string
                 for (int i = 0; i < List.ItemSize(); i++) {
-                    updatedDisplay = updatedDisplay + List.getItem(i) + "\n";
+                    updatedDisplay.append(List.getItem(i)).append("\n");
                 }
-                return updatedDisplay;
+                return updatedDisplay.toString();
             }
         }
     }
 
+    private void WaitForUser() {
+        while (InputUpdate) {
+            Thread.onSpinWait();
+        }
+        InputUpdate = false;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+        fileChooser.setInitialDirectory(new File("C:\\"));
+    }
 }

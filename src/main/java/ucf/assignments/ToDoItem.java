@@ -20,26 +20,40 @@ public class ToDoItem {
         setDone();
     }
 
+    public ToDoItem(String date, String desc, String Done){
+
+        setDate(date);
+        setDesc(desc);
+        if (Done.equals("Completed"))
+        setTrue();
+
+        setDone();
+    }
+
     public String getDate(){ return Date;}
     public void setDate(String date){
 
-        Date = date;
+        this.Date = date;
     }
 
     public String getDesc(){return Description;}
     public void setDesc(String Desc){
 
-        Description = Desc;
+        this.Description = Desc;
     }
 
     public String getDone(){ return Done;}
     public void setDone() {
-        if (Done != "true") {
-            Done = "true";
+        if (Done != "Completed") {
+            this.Done = "Completed";
         }
         else
         {
-            Done = "false";
+            this.Done = "Incomplete";
         }
+    }
+
+    public void setTrue() {
+        this.Done = "Completed";
     }
 }

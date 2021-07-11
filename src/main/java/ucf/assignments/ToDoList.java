@@ -15,7 +15,7 @@ public class ToDoList {
     private int currentItem;
 
     public ToDoList() {
-        ToDoItemList = new ArrayList<ToDoItem>();
+        this.ToDoItemList = new ArrayList<ToDoItem>();
     }
 
     public void newItem(String Date, String Desc)
@@ -23,6 +23,16 @@ public class ToDoList {
         ToDoItem item = new ToDoItem(Date, Desc);
 
         ToDoItemList.add(item);
+    }
+
+    public void newItem(String Date, String Desc, String Done) {
+
+        ToDoItem item = new ToDoItem(Date, Desc);
+
+        item.setDone();
+
+        ToDoItemList.add(item);
+
     }
 
     public void nextItem()
@@ -104,5 +114,4 @@ public class ToDoList {
         ToDoItemList.clear();
         currentItem = -1;
     }
-
 }
