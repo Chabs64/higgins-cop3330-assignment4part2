@@ -26,9 +26,9 @@ import static org.junit.jupiter.api.Assertions.*;
 7. A user shall be able to edit the description of an item within the list ---------
 8. A user shall be able to edit the due date of an item within the list -----------
 9. A user shall be able to mark an item in the list as either complete or incomplete ---------
-10. A user shall be able to display all of the existing items in the list
-11. A user shall be able to display only the incomplete items in the list
-12. A user shall be able to display only the completed items in the list
+10. A user shall be able to display all of the existing items in the list -----
+11. A user shall be able to display only the incomplete items in the list -----
+12. A user shall be able to display only the completed items in the list -----
 
 13. A user shall be able to save the list (and all of its items) to external storage ----------
 14. A user shall be able to load a list (and all of its items) from external storage ----------
