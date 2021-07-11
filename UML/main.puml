@@ -9,30 +9,42 @@ class ToDoManager
 
 javafx.Application <|-- ToDoManager
 
-class ToDoManagerController
-{
-    public newListClicked()
-    public deleteListClicked()
-    public editTitleClicked(String title) //write over
+class ToDoManagerController{
+
+    - ToDoList: List
+    - String: Desc, Date
+    - boolean InputUpdate
+
+    @FXML
+    + DisplayList
+    + UserPrompt
+    + UserInput
+
     public newItemClicked()
+    public NewToDoListClicked()
     public deleteItemClicked()
-    public editDescriptionClicked(String description) //write over
+    public editDescriptionClicked()
     public editDateClicked()
     public markDoneClicked()
+
     public ShowAllClicked()
     public ShowIncompleteClicked()
     public ShowCompletedClicked()
+
     public SaveClicked()
-    public SaveAllClicked()
-    public LoadClicked(String title) //prompt for title
-    public LoadAllClicked()
+    public LoadClicked()
 
-    public PreviousListClicked()
     public PreviousItemClicked()
-
-    public NextListClicked()
     public NextItemClicked()
 
+    public EnterListener()
+    private WaitForUser()
+
+    private getDateInput()
+    private getDescInput()
+    private createDisplay()
+
+    @Override initialize()
 }
 
 ToDoManager - ToDoManagerController
@@ -40,72 +52,57 @@ ToDoManagerController <-- ToDoList
 
 class ToDoList
 {
-    - String: Title
-    - Array[]: ToDoItem
+    - ArrayList: ToDoItem
     - int: CurrentItem
-
-    + String Date
-    + String Desc
 
     Constructor ToDoList()
 
-    String getTitle() return String
-    void setTitle(String)
+    public newItem()
 
-    private dateChecker(String Date) return boolean
-    public newItem(String Date, String Desc)
+    public nextItem()
+    public prevItem()
 
-    public editItem(int 0)
+    public editItemDate()
+    public editItemDesc()
+    public editItemDone()
 
-    public getItem(int 0)
+    public getItem()
+
+    public ItemSize()
+    public isDone()
+
+    public removeItem()
+    public clearItemList()
 }
 
 class ToDoItem
 {
-    //int item number
 
-    - boolean: Done
+    - String: Done
     - String: description
     - String: Date
 
     Constructor ToDoItem()
 
-    public String getDate() return String
-    public void setDate(String Date)
+    public String getDate()
+    public void setDate()
 
-    public String getDesc() return String
-    public void setDesc(String Desc)
+    public String getDesc()
+    public void setDesc()
 
-    public String getDone() return boolean
+    public String getDone()
     public void setDone()
-}
 
+    public setTrue()
+}
 ToDoList <-- ToDoItem
 
 class FileManager
 {
-
     public ListToFile()
-
     public FileToList()
-
-    public LoadMasterSave()
-
-    public SaveMasterSave()
-
 }
 
-class MasterSave
-{
-    LinkList: TitleList
-
-    getToDoList()
-    getAllToDoList()
-
-    addToDoList()
-}
-
-FileManager - MasterSave
-javafx.Application <-- FileManager
+ToDoManagerController <-- FileManager
 
 @enduml

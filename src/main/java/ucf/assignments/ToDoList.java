@@ -95,7 +95,7 @@ public class ToDoList {
 
     public boolean isDone(int x)
     {
-        if("Done".equals(ToDoItemList.get(x).getDone()))
+        if("Completed".equals(ToDoItemList.get(x).getDone()))
         {
             return true;
         }

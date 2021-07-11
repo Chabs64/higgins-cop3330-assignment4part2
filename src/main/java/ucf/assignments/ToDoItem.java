@@ -26,7 +26,7 @@ public class ToDoItem {
         setDesc(desc);
         if (Done.equals("Completed"))
         setTrue();
-
+        else
         setDone();
     }
 
