@@ -93,10 +93,16 @@ public class ToDoList {
         return false;
     }
 
+    public void removeItem()
+    {
+        ToDoItemList.remove(currentItem);
+        currentItem -= 1;
+    }
+
     public void clearItemList()
     {
         ToDoItemList.clear();
-        currentItem = 0;
+        currentItem = -1;
     }
 
 }

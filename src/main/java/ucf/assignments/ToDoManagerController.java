@@ -7,10 +7,12 @@
 
 package ucf.assignments;
 
+import com.sun.source.tree.WhileLoopTree;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 public class ToDoManagerController {
@@ -18,6 +20,7 @@ public class ToDoManagerController {
     private final ToDoList List = new ToDoList();
     private String Desc = null;
     private String Date = null;
+    private volatile boolean InputUpdate = false;
 
     //text section
     @FXML
@@ -35,11 +38,20 @@ public class ToDoManagerController {
         //update UserPrompt "Enter in new Date"
         UserPrompt.setText("Enter in new Date");
 
-        // call editItemDate
+        WaitForUser();
+
+        // call editItemDate, listen for input
         List.editItemDate(UserInput.getText());
 
         // get current Item object from ToDoList, call getItem
         DisplayList.setText(List.getItem());
+    }
+
+    private void WaitForUser() {
+        while (InputUpdate) {
+            Thread.onSpinWait();
+        }
+        InputUpdate = false;
     }
 
     @FXML
@@ -48,7 +60,9 @@ public class ToDoManagerController {
         //update UserPrompt "Enter in new description"
         UserPrompt.setText("Enter in new description");
 
-        // call editItemDesc
+        WaitForUser();
+
+        // call editItemDesc, listen for input
         List.editItemDesc(UserInput.getText());
 
         // get current Item object from ToDoList, call getItem
@@ -69,18 +83,29 @@ public class ToDoManagerController {
 
         //check if isEmpty
         //use list method to remove the item from the ToDoList
+
+        if (!List.getItem().isEmpty())
+        {
+            List.removeItem();
+        }
     }
 
     @FXML
     public void SaveClicked(ActionEvent actionEvent) {
 
+        //call file chose
+
         //call ListToFile
+
     }
 
     @FXML
     public void LoadClicked(ActionEvent actionEvent) {
 
+        //call file chose
+
         //call FileToList
+
     }
 
     @FXML
@@ -88,6 +113,12 @@ public class ToDoManagerController {
 
         //if enter key is hit
         //get text from userInput
+        while(true) {
+            if (keyEvent.getCode() == KeyCode.ENTER) {
+                InputUpdate = true;
+                break;
+            }
+        }
     }
 
     @FXML
@@ -131,6 +162,12 @@ public class ToDoManagerController {
 
     @FXML
     public void NewItemClicked(ActionEvent actionEvent) {
+
+
+        getDateInput();
+
+        getDescInput();
+
         List.newItem(Date, Desc);
     }
 
@@ -147,14 +184,7 @@ public class ToDoManagerController {
 
         //if Date match format YYYY-MM-DD //use .matchs
         //return ture;
-        if(Date.matches("####-##-##"))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return Date.matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]");
     }
 
     private boolean descChecker(String Desc)
@@ -164,15 +194,34 @@ public class ToDoManagerController {
 
     private void getDateInput()
     {
-        if( dateChecker(UserInput.getText()) ){
-            Date = UserInput.getText();
+        UserPrompt.setText("Enter a date: YYYY-MM-DD");
+        while (true) {
+            WaitForUser();
+
+            if (dateChecker(UserInput.getText())) {
+                Date = UserInput.getText();
+                break;
+            }
+            else
+            {
+                UserPrompt.setText("Try Again: Enter a Date");
+            }
         }
     }
 
     private void getDescInput()
     {
-        if( descChecker(UserInput.getText()) ) {
-            Desc = UserInput.getText();
+        UserPrompt.setText("Enter a description: Between 1 and 256 characters");
+        while(true) {
+            WaitForUser();
+            if (descChecker(UserInput.getText())) {
+                Desc = UserInput.getText();
+                break;
+            }
+            else
+            {
+                UserPrompt.setText("Try Again: Enter a description");
+            }
         }
     }
 
