@@ -6,7 +6,7 @@ First click new item to create a item, the program will prompt you for a Date, w
 Type Enter when your done tpying.
 
 Then it will prompt you for a description, keep it between 1 and 256 characters.
-Type Enter when your done tpying.
+Type Enter when your done typing.
 
 The completeness is set to incompleted by defualt.
 
