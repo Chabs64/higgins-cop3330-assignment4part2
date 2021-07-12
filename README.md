@@ -8,10 +8,10 @@ Type Enter when your done tpying.
 Then it will prompt you for a description, keep it between 1 and 256 characters.
 Type Enter when your done typing.
 
-The completeness is set to incompleted by defualt.
+The completeness is set to incomplete by defualt.
 
-Too navigate the items to modify any item you have add click the next or previous item.
-The item will appear on the screen, and will update after you have used any of the edit item buttons.
+Too navigate the items in you list and, to modify any item you have added, click the next or previous item button.
+The next or previous item will appear on the screen, and will update after you have used any of the edit item buttons.
 
 The Completed/Incomplete Button will toggle the current items Completed or Incomplete value.
 Either edit date or edit desciption button will prompt you like it did before when you added a new item.
