@@ -8,6 +8,7 @@
 package ucf.assignments;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
@@ -19,6 +20,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URL;
+import java.util.EventListener;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ToDoManagerController implements Initializable {
@@ -26,7 +29,8 @@ public class ToDoManagerController implements Initializable {
     private ToDoList List;
     private String Desc;
     private String Date;
-    private boolean InputUpdate;
+    private int currentCommand;
+    private int validInput;
 
     FileChooser fileChooser = new FileChooser();
 
@@ -46,13 +50,8 @@ public class ToDoManagerController implements Initializable {
         //update UserPrompt "Enter in new Date"
         UserPrompt.setText("Enter in new Date");
 
-        WaitForUser();
+        currentCommand = 1;
 
-        // call editItemDate, listen for input
-        List.editItemDate(UserInput.getText());
-
-        // get current Item object from ToDoList, call getItem
-        DisplayList.setText(List.getItem());
     }
 
     @FXML
@@ -61,18 +60,14 @@ public class ToDoManagerController implements Initializable {
         //update UserPrompt "Enter in new description"
         UserPrompt.setText("Enter in new description");
 
-        WaitForUser();
+        currentCommand = 2;
 
-        // call editItemDesc, listen for input
-        List.editItemDesc(UserInput.getText());
-
-        // get current Item object from ToDoList, call getItem
-        DisplayList.setText(List.getItem());
     }
 
     @FXML
     public void MarkDoneClicked(ActionEvent actionEvent) {
 
+        if (!List.getItem().isEmpty())
         List.editItemDone();
 
         // get current Item object from ToDoList, call getItem
@@ -89,6 +84,8 @@ public class ToDoManagerController implements Initializable {
         {
             List.removeItem();
         }
+
+        DisplayList.setText(List.getItem());
     }
 
     @FXML
@@ -115,13 +112,76 @@ public class ToDoManagerController implements Initializable {
     @FXML
     public void EnterListener(KeyEvent keyEvent) {
 
-        //if enter key is hit
-        //get text from userInput
-        while(true) {
             if (keyEvent.getCode() == KeyCode.ENTER) {
-                InputUpdate = true;
-                break;
+                CurrentCommand(currentCommand);
             }
+    }
+
+    private void CurrentCommand(int Command) {
+
+        switch (Command)
+        {
+            case 1:
+                getDateInput();
+                if (validInput == 1)
+                {
+                    break;
+                }
+
+                // call editItemDate, listen for input
+                List.editItemDate(UserInput.getText());
+
+                // get current Item object from ToDoList, call getItem
+                DisplayList.setText(List.getItem());
+                UserPrompt.setText("");
+                currentCommand = 0;
+                break;
+
+            case 2:
+                getDescInput();
+                if (validInput == 1)
+                {
+                    break;
+                }
+
+                // call editItemDesc
+                List.editItemDesc(UserInput.getText());
+
+                // get current Item object from ToDoList, call getItem
+                DisplayList.setText(List.getItem());
+                UserPrompt.setText("");
+                currentCommand = 0;
+                break;
+
+            case 3:
+                getDescInput();
+                if (validInput == 1)
+                {
+                    break;
+                }
+                else
+                {
+                    currentCommand = 4;
+                    UserPrompt.setText("Enter a date: YYYY-MM-DD");
+                }
+                break;
+
+            case 4:
+                getDateInput();
+                if (validInput == 1)
+                {
+                    break;
+                }
+                else
+                {
+                    List.newItem(Date, Desc);
+                    DisplayList.setText(List.getItem());
+                    UserPrompt.setText("");
+                    currentCommand = 0;
+                }
+                break;
+
+            default: break;
         }
     }
 
@@ -167,9 +227,8 @@ public class ToDoManagerController implements Initializable {
     @FXML
     public void NewItemClicked(ActionEvent actionEvent) {
 
-        getDateInput();
-        getDescInput();
-        List.newItem(Date, Desc);
+        UserPrompt.setText("Enter a description: Between 1 and 256 characters");
+        currentCommand = 3;
     }
 
     @FXML
@@ -177,6 +236,7 @@ public class ToDoManagerController implements Initializable {
 
         //call Clear Items method
         List.clearItemList();
+        DisplayList.setText("");
     }
 
     //help functions
@@ -184,7 +244,13 @@ public class ToDoManagerController implements Initializable {
 
         //if Date match format YYYY-MM-DD //use .matchs
         //return ture;
-        return Date.matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]");
+        if (Date != null) {
+            return Date.matches("[0-9][0-9][0-9][0-9]-[0-1][0-9]-[0-3][0-9]");
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public boolean descChecker(String Desc)
@@ -200,33 +266,29 @@ public class ToDoManagerController implements Initializable {
     private void getDateInput()
     {
         UserPrompt.setText("Enter a date: YYYY-MM-DD");
-        while (true) {
-            WaitForUser();
 
-            if (dateChecker(UserInput.getText())) {
-                Date = UserInput.getText();
-                break;
-            }
-            else
-            {
-                UserPrompt.setText("Try Again: Enter a Date");
-            }
+        if (dateChecker(UserInput.getText())) {
+            Date = UserInput.getText();
+            validInput = 0;
+        }
+        else
+        {
+            UserPrompt.setText("Try Again: Enter a Date");
+            validInput = 1;
         }
     }
 
-    private void getDescInput()
-    {
+    private void getDescInput() {
         UserPrompt.setText("Enter a description: Between 1 and 256 characters");
-        while(true) {
-            WaitForUser();
-            if (descChecker(UserInput.getText())) {
-                Desc = UserInput.getText();
-                break;
-            }
-            else
-            {
-                UserPrompt.setText("Try Again: Enter a description");
-            }
+
+        if (descChecker(UserInput.getText())) {
+            Desc = UserInput.getText();
+            validInput = 0;
+        }
+        else
+        {
+            UserPrompt.setText("Try Again: Enter a description");
+            validInput = 1;
         }
     }
 
@@ -271,18 +333,10 @@ public class ToDoManagerController implements Initializable {
         }
     }
 
-    private void WaitForUser() {
-        while (InputUpdate) {
-            Thread.onSpinWait();
-        }
-        InputUpdate = true;
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         fileChooser.setInitialDirectory(new File("C:\\"));
         List = new ToDoList();
-        InputUpdate = false;
     }
 }

@@ -13,7 +13,7 @@ class ToDoManagerController{
 
     - ToDoList: List
     - String: Desc, Date
-    - boolean InputUpdate
+    - int: currentCommand, validInput
 
     @FXML
     + DisplayList
@@ -38,7 +38,7 @@ class ToDoManagerController{
     public NextItemClicked()
 
     public EnterListener()
-    private WaitForUser()
+    private CurrentCommand()
 
     public getDateInput()
     public getDescInput()
