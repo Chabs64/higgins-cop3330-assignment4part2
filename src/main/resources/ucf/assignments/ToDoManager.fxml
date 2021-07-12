@@ -20,7 +20,7 @@
         <items>
           <MenuItem fx:id="EditDate" mnemonicParsing="false" onAction="#EditDateClicked" text="Edit Date" />
           <MenuItem fx:id="EditDesc" mnemonicParsing="false" onAction="#EditDescClicked" text="Edit Descirption" />
-            <MenuItem fx:id="MarkDone" mnemonicParsing="false" onAction="#MarkDoneClicked" text="Mark Completed/Uncomplete" />
+            <MenuItem fx:id="MarkDone" mnemonicParsing="false" onAction="#MarkDoneClicked" text="Mark Completed/Incomplete" />
             <MenuItem fx:id="DeleteItem" mnemonicParsing="false" onAction="#DeleteItemClicked" text="Delete Item" />
         </items>
       </MenuButton>

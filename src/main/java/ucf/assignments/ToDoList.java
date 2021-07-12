@@ -27,12 +27,9 @@ public class ToDoList {
 
     public void newItem(String Date, String Desc, String Done) {
 
-        ToDoItem item = new ToDoItem(Date, Desc);
-
-        item.setDone();
+        ToDoItem item = new ToDoItem(Date, Desc, Done);
 
         ToDoItemList.add(item);
-
     }
 
     public void nextItem()
